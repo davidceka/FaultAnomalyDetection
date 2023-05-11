@@ -301,19 +301,11 @@ for j = 1:length(fileList)
             
         end
         if isequal(topic_name{1}, 'mavros_local_position_pose')
-            gps_x = [];
-            gps_y = [];
-            gps_z = [];
             for k=1:(size(data,1))
                 myStruct=data.pose(k)
-                gps_x_value=myStruct.position.x;
-                gps_y_value=myStruct.position.y;
-                gps_z_value=myStruct.position.z;
-                
-                % Append extracted values to arrays
-                gps_x = [gps_x; gps_x_value];
-                gps_y = [gps_y; gps_y_value];
-                gps_z = [gps_z; gps_z_value];
+                gps_x=myStruct.position.x;
+                gps_y=myStruct.position.y;
+                gps_z=myStruct.position.z;
             end
                 topic_local_position_pose_timestamp=timetable(timestamps,gps_x,gps_y,gps_z);
         end
