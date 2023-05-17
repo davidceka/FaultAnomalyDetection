@@ -193,7 +193,7 @@ for j = 1:length(fileList)
                 angVel_z = [angVel_z; angVel_z_value];
             end
     
-            topic_imu_data_TT = timetable(timestamps, linAcc_x, linAcc_y, linAcc_z, angVel_x, angVel_y, angVel_z);
+            topic_imu_data_timetable = timetable(timestamps, linAcc_x, linAcc_y, linAcc_z, angVel_x, angVel_y, angVel_z);
         end
     
     
@@ -208,19 +208,19 @@ for j = 1:length(fileList)
             % data = removevars(data, {'coordinate_frame','des_x','des_y','des_z','header','meas_x','meas_y','meas_z','time_recv'});
            
             % Create timetable for 1 topic with feature selected
-            topic_velocity_TT = timetable(timestamps, data.errVel_x, data.errVel_y, data.errVel_z);
-            topic_velocity_TT = renamevars(topic_velocity_TT, 'Var1', 'errVel_x');
-            topic_velocity_TT = renamevars(topic_velocity_TT, 'Var2', 'errVel_y');
-            topic_velocity_TT = renamevars(topic_velocity_TT, 'Var3', 'errVel_z');
+            topic_velocity_timetable = timetable(timestamps, data.errVel_x, data.errVel_y, data.errVel_z);
+            topic_velocity_timetable = renamevars(topic_velocity_timetable, 'Var1', 'errVel_x');
+            topic_velocity_timetable = renamevars(topic_velocity_timetable, 'Var2', 'errVel_y');
+            topic_velocity_timetable = renamevars(topic_velocity_timetable, 'Var3', 'errVel_z');
       
         end
     
     
         if isequal(topic_name{1}, 'mavros_global_position_global')   
-            topic_global_position_TT = timetable(timestamps, data.altitude, data.latitude, data.longitude);
-            topic_global_position_TT = renamevars(topic_global_position_TT, 'Var1', 'altitude');
-            topic_global_position_TT = renamevars(topic_global_position_TT, 'Var2', 'latitude');
-            topic_global_position_TT = renamevars(topic_global_position_TT, 'Var3', 'longitude');
+            topic_global_position_timetable = timetable(timestamps, data.altitude, data.latitude, data.longitude);
+            topic_global_position_timetable = renamevars(topic_global_position_timetable, 'Var1', 'altitude');
+            topic_global_position_timetable = renamevars(topic_global_position_timetable, 'Var2', 'latitude');
+            topic_global_position_timetable = renamevars(topic_global_position_timetable, 'Var3', 'longitude');
     
         end
     
@@ -230,8 +230,8 @@ for j = 1:length(fileList)
             data.err_roll = abs(data.measured - data.commanded);
             
             % Create timetable 
-            topic_err_roll_TT = timetable(timestamps, data.err_roll);
-            topic_err_roll_TT = renamevars(topic_err_roll_TT, 'Var1', 'err_roll');    
+            topic_err_roll_timetable = timetable(timestamps, data.err_roll);
+            topic_err_roll_timetable = renamevars(topic_err_roll_timetable, 'Var1', 'err_roll');    
         end
     
     
@@ -241,15 +241,15 @@ for j = 1:length(fileList)
             data.err_airspeed = abs(data.measured - data.commanded);
             
             % Create timetable 
-            topic_err_airspeed_TT = timetable(timestamps, data.err_airspeed);
-            topic_err_airspeed_TT = renamevars(topic_err_airspeed_TT, 'Var1', 'err_airspeed');    
+            topic_err_airspeed_timetable = timetable(timestamps, data.err_airspeed);
+            topic_err_airspeed_timetable = renamevars(topic_err_airspeed_timetable, 'Var1', 'err_airspeed');    
     
         end
     
         if isequal(topic_name{1}, 'mavros_nav_info_errors')   
-            topic_info_errors_TT = timetable(timestamps, data.aspd_error, data.alt_error);
-            topic_info_errors_TT = renamevars(topic_info_errors_TT, 'Var1', 'aspd_error');
-            topic_info_errors_TT = renamevars(topic_info_errors_TT, 'Var2', 'alt_error');
+            topic_info_errors_timetable = timetable(timestamps, data.aspd_error, data.alt_error);
+            topic_info_errors_timetable = renamevars(topic_info_errors_timetable, 'Var1', 'aspd_error');
+            topic_info_errors_timetable = renamevars(topic_info_errors_timetable, 'Var2', 'alt_error');
     
         end
     
@@ -258,8 +258,8 @@ for j = 1:length(fileList)
             data.err_yaw = abs(data.measured - data.commanded);
     
             % Create timetable 
-            topic_err_yaw_TT = timetable(timestamps, data.err_yaw);
-            topic_err_yaw_TT = renamevars(topic_err_yaw_TT, 'Var1', 'err_yaw');
+            topic_err_yaw_timetable = timetable(timestamps, data.err_yaw);
+            topic_err_yaw_timetable = renamevars(topic_err_yaw_timetable, 'Var1', 'err_yaw');
         end
     
         if isequal(topic_name{1}, 'mavros_nav_info_pitch')
@@ -267,8 +267,8 @@ for j = 1:length(fileList)
             data.err_pitch = abs(data.measured - data.commanded);
     
             % Create timetable 
-            topic_err_pitch_TT = timetable(timestamps, data.err_pitch);
-            topic_err_pitch_TT = renamevars(topic_err_pitch_TT, 'Var1', 'err_pitch');
+            topic_err_pitch_timetable = timetable(timestamps, data.err_pitch);
+            topic_err_pitch_timetable = renamevars(topic_err_pitch_timetable, 'Var1', 'err_pitch');
         end
 
         if isequal(topic_name{1}, 'mavros_rc_out')
@@ -296,7 +296,7 @@ for j = 1:length(fileList)
             end
             
             %timetable
-                topic_rc_out_timestamp = timetable(timestamps, data.ch1,data.ch2,data.ch3,data.ch4,data.ch5,data.ch6,data.ch7,data.ch8);
+                topic_rc_out_timetable = timetable(timestamps, ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8);
 
             
         end
@@ -305,7 +305,7 @@ for j = 1:length(fileList)
             gps_y = [];
             gps_z = [];
             for k=1:(size(data,1))
-                myStruct=data.pose(k)
+                myStruct=data.pose(k);
                 gps_x_value=myStruct.position.x;
                 gps_y_value=myStruct.position.y;
                 gps_z_value=myStruct.position.z;
@@ -315,18 +315,12 @@ for j = 1:length(fileList)
                 gps_y = [gps_y; gps_y_value];
                 gps_z = [gps_z; gps_z_value];
             end
-                topic_local_position_pose_timestamp=timetable(timestamps,gps_x,gps_y,gps_z);
+                topic_local_position_pose_timetable =timetable(timestamps,gps_x,gps_y,gps_z);
+                
         end
     
         
-        %{
-        if isequal(topic_name{1}, 'mavctrl_path_dev')   
-            topic_mavctrl_path_dev_TT = timetable(timestamps, data.x, data.y, data.z);
-            topic_mavctrl_path_dev_TT = renamevars(topic_mavctrl_path_dev_TT, 'Var1', 'path_dev_x');
-            topic_mavctrl_path_dev_TT = renamevars(topic_mavctrl_path_dev_TT, 'Var2', 'path_dev_y');
-            topic_mavctrl_path_dev_TT = renamevars(topic_mavctrl_path_dev_TT, 'Var3', 'path_dev_z');
-        end
-        %}
+      
         
         % if i == 2 % velocity
         % if i == 17 % altitude
@@ -337,167 +331,95 @@ for j = 1:length(fileList)
     
         if isequal(i, numel(topics)) 
     
-            % test_TT = synchronize(topic_velocity_TT,topic_global_position_TT, topic_imu_data_row_TT, 'union', 'linear');
-            test_TT = synchronize(topic_velocity_TT,topic_global_position_TT, topic_imu_data_TT, topic_err_roll_TT, topic_err_airspeed_TT, topic_info_errors_TT, topic_err_yaw_TT, topic_err_pitch_TT, 'regular', 'linear', 'SampleRate', fs_new);
+            test_timetable = synchronize(topic_velocity_timetable,topic_global_position_timetable, topic_imu_data_timetable, topic_err_roll_timetable, topic_err_airspeed_timetable, topic_info_errors_timetable, topic_err_yaw_timetable, topic_err_pitch_timetable,topic_local_position_pose_timetable,topic_rc_out_timetable, 'regular', 'linear', 'SampleRate', fs_new);
                         
-            test_TT = test_TT([test_TT.timestamps] >= 0,:);
+            test_timetable = test_timetable([test_timetable.timestamps] >= 0,:);
 
-            if(test_TT.timestamps(1) ~= 0)
-                newRow = test_TT(1,:);
-                test_TT = [newRow; test_TT(:,:)];
-                test_TT.timestamps(1) = 0;
+            if(test_timetable.timestamps(1) ~= 0)
+                newRow = test_timetable(1,:);
+                test_timetable = [newRow; test_timetable(:,:)];
+                test_timetable.timestamps(1) = 0;
             end
             
-            num_rows_test_TT = size(test_TT, 1);
+            num_rows_test_timetable = size(test_timetable, 1);
             
-            remain = rem(num_rows_test_TT, 64);
+            remain = rem(num_rows_test_timetable, 64);
 
             if(remain == 0)
-                test_TT = test_TT(1:end-63,:);
+                test_timetable = test_timetable(1:end-63,:);
             elseif(remain ~= 1) % vogliamo numero di righe multiplo di 64 + 1 di scarto           
-                test_TT = test_TT(1:end-(remain-1),:);
+                test_timetable = test_timetable(1:end-(remain-1),:);
             end
             
             dur1 = duration(0, 0, 17.92);  % 0 hours 0 minutes and 17.92 seconds
-            if (test_TT.timestamps(size(test_TT, 1)) == dur1)
-                test_TT = test_TT(1:end-(1),:);
+            if (test_timetable.timestamps(size(test_timetable, 1)) == dur1)
+                test_timetable = test_timetable(1:end-(1),:);
             end
 
             dur2 = duration(0, 0, 35.84);  
-            if (test_TT.timestamps(size(test_TT, 1)) == dur2)
-                test_TT = test_TT(1:end-(1),:);
+            if (test_timetable.timestamps(size(test_timetable, 1)) == dur2)
+                test_timetable = test_timetable(1:end-(1),:);
             end
             
             dur3 = duration(0, 0, 71.68);  
-            if (test_TT.timestamps(size(test_TT, 1)) == dur3)
-                test_TT = test_TT(1:end-(1),:);
+            if (test_timetable.timestamps(size(test_timetable, 1)) == dur3)
+                test_timetable = test_timetable(1:end-(1),:);
             end
 
-
-            %{
-            f1=figure('Name', 'errVel_x before and after sampling','position',[150,0,1000,650]);
-            f11=subplot(2,1,1,'Parent',f1);
-            plot(topic_velocity_TT.timestamps,topic_velocity_TT.errVel_x,'-o');
-            f12=subplot(2,1,2,'Parent',f1);
-            plot(test_TT.timestamps, test_TT.errVel_x,'-o');
-    
-            f3=figure('Name', 'errVel_y before and after sampling','position',[150,0,1000,650]);
-            f31=subplot(2,1,1,'Parent',f3);
-            plot(topic_velocity_TT.timestamps,topic_velocity_TT.errVel_y,'-o');
-            f32=subplot(2,1,2,'Parent',f3);
-            plot(test_TT.timestamps, test_TT.errVel_y,'-o');
-    
-            f4=figure('Name', 'errVel_z before and after sampling','position',[150,0,1000,650]);
-            f41=subplot(2,1,1,'Parent',f4);
-            plot(topic_velocity_TT.timestamps,topic_velocity_TT.errVel_z,'-o');
-            f42=subplot(2,1,2,'Parent',f4);
-            plot(test_TT.timestamps, test_TT.errVel_z,'-o');
-    
-            f2=figure('Name', 'altitude before and after sampling','position',[150,0,1000,650]);
-            f21=subplot(2,1,1,'Parent',f2);
-            plot(topic_global_position_TT.timestamps,topic_global_position_TT.altitude,'-o');
-            f22=subplot(2,1,2,'Parent',f2);
-            plot(test_TT.timestamps, test_TT.altitude,'-o');
-            
-            f5=figure('Name', 'linAcc_x before and after sampling','position',[150,0,1000,650]);
-            f51=subplot(2,1,1,'Parent',f5);
-            plot(topic_imu_data_TT.timestamps, topic_imu_data_TT.linAcc_x,'-o');
-            f52=subplot(2,1,2,'Parent',f5);
-            plot(test_TT.timestamps, test_TT.linAcc_x,'-o');
-    
-            f6=figure('Name', 'velAng_x before and after sampling','position',[150,0,1000,650]);
-            f61=subplot(2,1,1,'Parent',f6);
-            plot(topic_imu_data_TT.timestamps, topic_imu_data_TT.angVel_x,'-o');
-            f62=subplot(2,1,2,'Parent',f6);
-            plot(test_TT.timestamps, test_TT.angVel_x,'-o');
-           
-            f7=figure('Name', 'mag_x before and after sampling','position',[150,0,1000,650]);
-            f71=subplot(2,1,1,'Parent',f7);
-            plot(topic_imu_mag_TT.timestamps, topic_imu_mag_TT.mag_x,'-o');
-            f72=subplot(2,1,2,'Parent',f7);
-            plot(test_TT.timestamps, test_TT.mag_x,'-o');
-            
-    
-            f8=figure('Name', 'err_roll before and after sampling','position',[150,0,1000,650]);
-            f81=subplot(2,1,1,'Parent',f8);
-            plot(topic_err_roll_TT.timestamps, topic_err_roll_TT.err_roll,'-o');
-            f82=subplot(2,1,2,'Parent',f8);
-            plot(test_TT.timestamps, test_TT.err_roll,'-o');
-    
-            f9=figure('Name', 'err_yaw before and after sampling','position',[150,0,1000,650]);
-            f91=subplot(2,1,1,'Parent',f9);
-            plot(topic_err_yaw_TT.timestamps, topic_err_yaw_TT.err_yaw,'-o');
-            f92=subplot(2,1,2,'Parent',f9);
-            plot(test_TT.timestamps, test_TT.err_yaw,'-o');
-    
-            f10=figure('Name', 'err_pitch before and after sampling','position',[150,0,1000,650]);
-            f101=subplot(2,1,1,'Parent',f10);
-            plot(topic_err_pitch_TT.timestamps, topic_err_pitch_TT.err_pitch,'-o');
-            f102=subplot(2,1,2,'Parent',f10);
-            plot(test_TT.timestamps, test_TT.err_pitch,'-o');
-          
-    
-            f11=figure('Name', 'orientation_x before and after sampling','position',[150,0,1000,650]);
-            f111=subplot(2,1,1,'Parent',f11);
-            plot(topic_global_position_local_TT.timestamps, topic_global_position_local_TT.orientation_x,'-o');
-            f112=subplot(2,1,2,'Parent',f11);
-            plot(test_TT.timestamps, test_TT.orientation_x,'-o');
-    
-            
-    
-            f12=figure('Name', 'throttle before and after sampling','position',[150,0,1000,650]);
-            f121=subplot(2,1,1,'Parent',f12);
-            plot(topic_vfr_hud_TT.timestamps, topic_vfr_hud_TT.throttle,'-o');
-            f122=subplot(2,1,2,'Parent',f12);
-            plot(test_TT.timestamps, test_TT.throttle,'-o');
-            
-           
-    
-            f13=figure('Name', 'path_dev_y before and after sampling','position',[150,0,1000,650]);
-            f131=subplot(2,1,1,'Parent',f13);
-            plot(topic_mavctrl_path_dev_TT.timestamps, topic_mavctrl_path_dev_TT.path_dev_y,'-o');
-            f132=subplot(2,1,2,'Parent',f13);
-            plot(test_TT.timestamps, test_TT.path_dev_y,'-o');
-            
-            %}
      
             % create timetables to put in the final table
     
-            linAcc_xTT = timetable(test_TT.timestamps, test_TT.linAcc_x);
-            linAcc_yTT = timetable(test_TT.timestamps, test_TT.linAcc_y);
-            linAcc_zTT = timetable(test_TT.timestamps, test_TT.linAcc_z);
-            angVel_xTT = timetable(test_TT.timestamps, test_TT.angVel_x);
-            angVel_yTT = timetable(test_TT.timestamps, test_TT.angVel_y);
-            angVel_zTT = timetable(test_TT.timestamps, test_TT.angVel_z);
+            linAcc_xTT = timetable(test_timetable.timestamps, test_timetable.linAcc_x);
+            linAcc_yTT = timetable(test_timetable.timestamps, test_timetable.linAcc_y);
+            linAcc_zTT = timetable(test_timetable.timestamps, test_timetable.linAcc_z);
+            angVel_xTT = timetable(test_timetable.timestamps, test_timetable.angVel_x);
+            angVel_yTT = timetable(test_timetable.timestamps, test_timetable.angVel_y);
+            angVel_zTT = timetable(test_timetable.timestamps, test_timetable.angVel_z);
     
-            errVel_xTT = timetable(test_TT.timestamps, test_TT.errVel_x);
-            errVel_yTT = timetable(test_TT.timestamps, test_TT.errVel_y);
-            errVel_zTT = timetable(test_TT.timestamps, test_TT.errVel_z);
+            errVel_xTT = timetable(test_timetable.timestamps, test_timetable.errVel_x);
+            errVel_yTT = timetable(test_timetable.timestamps, test_timetable.errVel_y);
+            errVel_zTT = timetable(test_timetable.timestamps, test_timetable.errVel_z);
     
-            altitudeTT = timetable(test_TT.timestamps, test_TT.altitude);
-            latitudeTT = timetable(test_TT.timestamps, test_TT.latitude);
-            longitudeTT = timetable(test_TT.timestamps, test_TT.longitude);
+            altitudeTT = timetable(test_timetable.timestamps, test_timetable.altitude);
+            latitudeTT = timetable(test_timetable.timestamps, test_timetable.latitude);
+            longitudeTT = timetable(test_timetable.timestamps, test_timetable.longitude);
     
-            err_roll_TT = timetable(test_TT.timestamps, test_TT.err_roll);
+            err_roll_timetable = timetable(test_timetable.timestamps, test_timetable.err_roll);
     
-            err_airspeed_TT = timetable(test_TT.timestamps, test_TT.err_airspeed);
+            err_airspeed_timetable = timetable(test_timetable.timestamps, test_timetable.err_airspeed);
     
-            aspd_error_TT = timetable(test_TT.timestamps, test_TT.aspd_error);
-            alt_error_TT = timetable(test_TT.timestamps, test_TT.alt_error);
+            aspd_error_timetable = timetable(test_timetable.timestamps, test_timetable.aspd_error);
+            alt_error_timetable = timetable(test_timetable.timestamps, test_timetable.alt_error);
     
-            err_yaw_TT = timetable(test_TT.timestamps, test_TT.err_yaw);
+            err_yaw_timetable = timetable(test_timetable.timestamps, test_timetable.err_yaw);
     
-            err_pitch_TT = timetable(test_TT.timestamps, test_TT.err_pitch);
-    
-          
+            err_pitch_timetable = timetable(test_timetable.timestamps, test_timetable.err_pitch);
+
+            gps_x_timetable=timetable(test_timetable.timestamps,test_timetable.gps_x);
+            gps_y_timetable=timetable(test_timetable.timestamps,test_timetable.gps_y);
+            gps_z_timetable=timetable(test_timetable.timestamps,test_timetable.gps_z);
+
+            ch1_timetable=timetable(test_timetable.timestamps,test_timetable.ch1);
+            ch2_timetable=timetable(test_timetable.timestamps,test_timetable.ch2);
+            ch3_timetable=timetable(test_timetable.timestamps,test_timetable.ch3);
+            ch4_timetable=timetable(test_timetable.timestamps,test_timetable.ch4);
+            ch5_timetable=timetable(test_timetable.timestamps,test_timetable.ch5);
+            ch6_timetable=timetable(test_timetable.timestamps,test_timetable.ch6);
+            ch7_timetable=timetable(test_timetable.timestamps,test_timetable.ch7);
+            ch8_timetable=timetable(test_timetable.timestamps,test_timetable.ch8);
+
         
-            %path_dev_xTT = timetable(test_TT.timestamps, test_TT.path_dev_x);
-            %path_dev_yTT = timetable(test_TT.timestamps, test_TT.path_dev_y);
-            %path_dev_zTT = timetable(test_TT.timestamps, test_TT.path_dev_z);
+            %path_dev_xTT = timetable(test_timetable.timestamps, test_timetable.path_dev_x);
+            %path_dev_yTT = timetable(test_timetable.timestamps, test_timetable.path_dev_y);
+            %path_dev_zTT = timetable(test_timetable.timestamps, test_timetable.path_dev_z);
     
     
             % put timetables in final table
             
+            dataTable.gps_x_timetable(j)={gps_x_timetable};
+            dataTable.gps_y_timetable(j)={gps_y_timetable};
+            dataTable.gps_z_timetable(j)={gps_z_timetable};
+
             % topic imu data raw
             dataTable.linAcc_xTT(j) = {linAcc_xTT};
             dataTable.linAcc_yTT(j) = {linAcc_yTT};
@@ -510,37 +432,32 @@ for j = 1:length(fileList)
             dataTable.errVel_xTT(j) = {errVel_xTT};
             dataTable.errVel_yTT(j) = {errVel_yTT};
             dataTable.errVel_zTT(j) = {errVel_zTT};
-            
-            % topic mavros global position
-            dataTable.altitudeTT(j) = {altitudeTT};
-            dataTable.latitudeTT(j) = {latitudeTT};
-            dataTable.longitudeTT(j) = {longitudeTT};
     
             % topic mavros info roll
-            dataTable.err_roll_TT(j) = {err_roll_TT};
+            dataTable.err_roll_timetable(j) = {err_roll_timetable};
     
             % topic mavros info airspeed
-            dataTable.err_airspeed_TT(j) = {err_airspeed_TT};
+            dataTable.err_airspeed_timetable(j) = {err_airspeed_timetable};
     
             %topic mavros nav info errors
-            dataTable.aspd_error_TT(j) = {aspd_error_TT};
-            dataTable.alt_error_TT(j) = {alt_error_TT};
+            dataTable.aspd_error_timetable(j) = {aspd_error_timetable};
+            dataTable.alt_error_timetable(j) = {alt_error_timetable};
     
             % topic mavros info yaw
-            dataTable.err_yaw_TT(j) = {err_yaw_TT};
+            dataTable.err_yaw_timetable(j) = {err_yaw_timetable};
     
             % topic mavros info pitch
-            dataTable.err_pitch_TT(j) = {err_pitch_TT};
+            dataTable.err_pitch_timetable(j) = {err_pitch_timetable};
 
             %topic mavros rc out
-            dataTable.ch1(j)={ch1};
-            dataTable.ch2(j)={ch2};
-            dataTable.ch3(j)={ch3};
-            dataTable.ch4(j)={ch4};
-            dataTable.ch5(j)={ch5};
-            dataTable.ch6(j)={ch6};
-            dataTable.ch7(j)={ch7};
-            dataTable.ch8(j)={ch8};
+            dataTable.ch1_timetable(j)={ch1_timetable};
+            dataTable.ch2_timetable(j)={ch2_timetable};
+            dataTable.ch3_timetable(j)={ch3_timetable};
+            dataTable.ch4_timetable(j)={ch4_timetable};
+            dataTable.ch5_timetable(j)={ch5_timetable};
+            dataTable.ch6_timetable(j)={ch6_timetable};
+            dataTable.ch7_timetable(j)={ch7_timetable};
+            dataTable.ch8_timetable(j)={ch8_timetable};
             % topic mvctrl path dev
             %{
             dataTable.path_dev_x(j) = {path_dev_xTT};
