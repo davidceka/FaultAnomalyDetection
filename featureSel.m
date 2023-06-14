@@ -11,7 +11,7 @@ function [featureTable,outputTable] = diagnosticFeatures(inputData)
 %  outputTable: A table containing the computation results.
 
 % Create output ensemble.
-features = ["gps_x_timetable";"gps_y_timetable";"gps_z_timetable";"acc_x_timetable";"acc_y_timetable";"acc_z_timetable";"gyro_x_timetable";"gyro_y_timetable";"gyro_z_timetable";"velDes_x_timetable";"velDes_y_timetable";"velDes_z_timetable";"vel_x_timetable";"vel_y_timetable";"vel_z_timetable";"roll_timetable";"roll_des_timetable";"yaw_timetable";"yaw_des_timetable";"pitch_timetable";"pitch_des_timetable";"err_track_timetable";"err_speed_timetable";"err_al_timetableT";"ch1_timetable";"ch2_timetable";"ch3_timetable";"ch4_timetable";"ch5_timetable";"ch6_timetable";"ch7_timetable";"ch8_timetable"];
+features = ["gps_x_timetable";"gps_y_timetable";"gps_z_timetable";"acc_x_timetable";"acc_y_timetable";"acc_z_timetable";"gyro_x_timetable";"gyro_y_timetable";"gyro_z_timetable";"velDes_x_timetable";"velDes_y_timetable";"velDes_z_timetable";"vel_x_timetable";"vel_y_timetable";"vel_z_timetable";"roll_timetable";"roll_des_timetable";"yaw_timetable";"yaw_des_timetable";"pitch_timetable";"pitch_des_timetable";"err_track_timetable";"err_speed_timetable";"err_al_timetableT";"ch1_timetable";"ch2_timetable";"ch3_timetable";"ch4_timetable";"ch5_timetable";"ch6_timetable";"ch7_timetable";"ch8_timetable";"err_yaw_timetable";"err_pitch_timetable";"err_roll_timetable"];
 %outputEnsemble = workspaceEnsemble(inputData,'DataVariables', features,'ConditionVariables',"FaultLabel");
 outputEnsemble = workspaceEnsemble(inputData,'DataVariables', features,'ConditionVariables',"FaultLabel");
 

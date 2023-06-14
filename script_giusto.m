@@ -205,6 +205,13 @@ for j = 1:length(fileList)
         end
         
         if isequal(topic_name{1}, 'mavros_nav_info_yaw')
+
+            data.err_yaw = abs(data.measured - data.commanded);
+    
+            % Create timetable 
+            topic_err_yaw_timetable = timetable(timestamps, data.err_yaw);
+            topic_err_yaw_timetable = renamevars(topic_err_yaw_timetable, 'Var1', 'err_yaw');
+
             topic_nav_info_yaw_timetable = timetable(timestamps, data.measured, data.commanded);
             topic_nav_info_yaw_timetable = renamevars(topic_nav_info_yaw_timetable, 'Var1', 'yaw');    
             topic_nav_info_yaw_timetable = renamevars(topic_nav_info_yaw_timetable, 'Var2', 'yaw_des');    
@@ -245,11 +252,29 @@ for j = 1:length(fileList)
             
         end
         
+        if isequal(topic_name{1}, 'mavros_nav_info_roll')
+    
+            data.err_roll = abs(data.measured - data.commanded);
+            
+            % Create timetable 
+            topic_err_roll_timetable = timetable(timestamps, data.err_roll);
+            topic_err_roll_timetable = renamevars(topic_err_roll_timetable, 'Var1', 'err_roll');    
+        end
+
+        if isequal(topic_name{1}, 'mavros_nav_info_pitch')
+       
+            data.err_pitch = abs(data.measured - data.commanded);
+    
+            % Create timetable 
+            topic_err_pitch_timetable = timetable(timestamps, data.err_pitch);
+            topic_err_pitch_timetable = renamevars(topic_err_pitch_timetable, 'Var1', 'err_pitch');
+        end
+        
        
     
         if isequal(i, numel(topics)) 
     
-            test_timetable = synchronize(topic_imu_data_raw_timetable, topic_velocity_timetable, topic_local_position_timetable, topic_nav_info_roll_timetable, topic_nav_info_pitch_timetable, topic_nav_info_yaw_timetable, topic_info_errors_timetable, topic_rc_out_timetable, 'regular', 'linear', 'SampleRate', fs_new);
+            test_timetable = synchronize(topic_err_roll_timetable,topic_err_yaw_timetable,topic_err_pitch_timetable,topic_imu_data_raw_timetable, topic_velocity_timetable, topic_local_position_timetable, topic_nav_info_roll_timetable, topic_nav_info_pitch_timetable, topic_nav_info_yaw_timetable, topic_info_errors_timetable, topic_rc_out_timetable, 'regular', 'linear', 'SampleRate', fs_new);
 
             test_timetable = test_timetable([test_timetable.timestamps] >= 0,:);
 
@@ -328,6 +353,12 @@ for j = 1:length(fileList)
             ch7_timetable=timetable(test_timetable.timestamps,test_timetable.ch7);
             ch8_timetable=timetable(test_timetable.timestamps,test_timetable.ch8);
 
+            err_yaw_timetable = timetable(test_timetable.timestamps, test_timetable.err_yaw);
+    
+            err_pitch_timetable = timetable(test_timetable.timestamps, test_timetable.err_pitch);
+
+            err_roll_timetable = timetable(test_timetable.timestamps, test_timetable.err_roll);
+
         
             %mavros local position pose
             dataTable.gps_x_timetable(j) = {gps_x_timetable};
@@ -377,6 +408,15 @@ for j = 1:length(fileList)
             dataTable.ch6_timetable(j)={ch6_timetable};
             dataTable.ch7_timetable(j)={ch7_timetable};
             dataTable.ch8_timetable(j)={ch8_timetable};
+
+            % topic mavros info yaw
+            dataTable.err_yaw_timetable(j) = {err_yaw_timetable};
+    
+            % topic mavros info pitch
+            dataTable.err_pitch_timetable(j) = {err_pitch_timetable};
+
+            % topic mavros info roll
+            dataTable.err_roll_timetable(j) = {err_roll_timetable};
             
         end
     end
