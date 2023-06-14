@@ -1,5 +1,5 @@
 
-function [featureTable,outputTable] = diagnosticFeatures(inputData)
+function [featureTable,outputTable] = featureSel(inputData)
 %DIAGNOSTICFEATURES recreates results in Diagnostic Feature Designer.
 %
 % Input:
