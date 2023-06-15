@@ -168,7 +168,30 @@ for j = 1:length(fileList)
             topic_velocity_timetable = renamevars(topic_velocity_timetable, 'Var5', 'vel_y');
             topic_velocity_timetable = renamevars(topic_velocity_timetable, 'Var6', 'vel_z');
         end
-    
+
+        if isequal(topic_name{1}, 'mavros_setpoint_raw_target_global')  
+            setpoint_x_err = [];
+            setpoint_y_err = [];
+            setpoint_z_err = [];
+            % Loop over rows of the table
+            for k = 1:size(data, 1)
+                myStruct_setpoint_pos = data;
+                % Extract values from fields of structure
+                setpoint_x_value = myStruct_setpoint_pos.latitude(k);
+                setpoint_y_value = myStruct_setpoint_pos.longitude(k);
+                setpoint_z_value = myStruct_setpoint_pos.altitude(k);
+
+                
+                % Append extracted values to arrays
+                setpoint_x_err = [setpoint_x_err; setpoint_x_value];
+                setpoint_y_err = [setpoint_y_err; setpoint_y_value];
+                setpoint_z_err = [setpoint_z_err; setpoint_z_value];
+                % Calcolo dell'errore in posizione utilizzando abs
+                                
+                
+            end
+            topic_error_setpoint_timetable = timetable(timestamps, setpoint_x_err, setpoint_y_err, setpoint_z_err);
+        end
     
         if isequal(topic_name{1}, 'mavros_local_position_pose')   
             gps_x = [];
@@ -274,7 +297,7 @@ for j = 1:length(fileList)
     
         if isequal(i, numel(topics)) 
     
-            test_timetable = synchronize(topic_err_roll_timetable,topic_err_yaw_timetable,topic_err_pitch_timetable,topic_imu_data_raw_timetable, topic_velocity_timetable, topic_local_position_timetable, topic_nav_info_roll_timetable, topic_nav_info_pitch_timetable, topic_nav_info_yaw_timetable, topic_info_errors_timetable, topic_rc_out_timetable, 'regular', 'linear', 'SampleRate', fs_new);
+            test_timetable = synchronize(topic_error_setpoint_timetable,topic_err_roll_timetable,topic_err_yaw_timetable,topic_err_pitch_timetable,topic_imu_data_raw_timetable, topic_velocity_timetable, topic_local_position_timetable, topic_nav_info_roll_timetable, topic_nav_info_pitch_timetable, topic_nav_info_yaw_timetable, topic_info_errors_timetable, topic_rc_out_timetable, 'regular', 'linear', 'SampleRate', fs_new);
 
             test_timetable = test_timetable([test_timetable.timestamps] >= 0,:);
 
@@ -359,7 +382,19 @@ for j = 1:length(fileList)
 
             err_roll_timetable = timetable(test_timetable.timestamps, test_timetable.err_roll);
 
-        
+            setpoint_x_timetable = timetable(test_timetable.timestamps, test_timetable.setpoint_x_err);
+            setpoint_y_timetable = timetable(test_timetable.timestamps, test_timetable.setpoint_y_err);
+            setpoint_z_timetable = timetable(test_timetable.timestamps, test_timetable.setpoint_z_err);
+
+            error_x = abs(gps_x_timetable - setpoint_x_timetable);
+            error_y = abs(gps_y_timetable - setpoint_y_timetable);
+            error_z = abs(gps_z_timetable - setpoint_z_timetable);
+
+            dataTable.error_x_setpoint(j)={error_x};
+            dataTable.error_y_setpoint(j)={error_y};
+            dataTable.error_z_setpoint(j)={error_z};
+
+               
             %mavros local position pose
             dataTable.gps_x_timetable(j) = {gps_x_timetable};
             dataTable.gps_y_timetable(j) = {gps_y_timetable};
