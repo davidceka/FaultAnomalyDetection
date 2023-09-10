@@ -4,10 +4,10 @@ clear all;
 clc;
 
 %% Load dataset
-T = load('Ranking_25.mat');
+T = load('RankedFeatures.mat');
 T = T.FeatureTable1;
 
-n_features=26
+n_features=31
 
 %% count labels of imbalance dataset
 
