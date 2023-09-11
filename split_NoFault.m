@@ -23,7 +23,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_engines.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -42,7 +42,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_elevator.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -61,7 +61,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -81,7 +81,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -100,7 +100,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -120,7 +120,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_rudder.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
@@ -139,7 +139,7 @@ for j = 1:length(fileList)
         time_FailureStart = Sequence.Topics.failure_status_rudder.time_recv(1);
         disp(time_FailureStart);
 
-        % start_time = Sequence.GetStartTime();
+        
         topics = fieldnames(Sequence.Topics);
 
         for i = 1:numel(topics)
