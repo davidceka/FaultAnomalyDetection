@@ -23,7 +23,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_engines.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
@@ -58,7 +57,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
@@ -75,7 +73,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
@@ -91,7 +88,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_aileron.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
@@ -108,7 +104,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_rudder.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
@@ -124,7 +119,6 @@ for j = 1:length(fileList)
         time_first_failure = Sequence.Topics.failure_status_rudder.time_recv(1);
         disp(time_first_failure);
 
-        % start_time = Sequence.GetStartTime();
         topics = fieldnames(Sequence.Topics);
         for i = 1:numel(topics)
             topic_name = topics{i};     % Get the current field name
